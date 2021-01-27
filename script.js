@@ -54,9 +54,9 @@ let ball = document.createElement("img");
 ball.src = "images/ball2.png";
 
 let ballY = canvas.height - mike.height - 38;
-let mikeX = (backImg.width - mike.width) / 2;
+let mikeX = (canvas.width - mike.width) / 2;
 let ballX = mikeX + 12;
-let mikeY = backImg.height - mike.height;
+let mikeY = canvas.height - mike.height;
 
 function rndSize() {
   let rw = Math.floor(Math.random() * 80) + 20;
@@ -66,30 +66,64 @@ function rndSize() {
 
 let firstSize = rndSize();
 
-function ballPos() {
-  let x = mike + 12
-  let y = ballY
-  return [x,y]
-}
 
-let firstPos = ballPos()
 
 let arrToby = [{ x: 30, y: 30, width: firstSize[0], height: firstSize[1] }];
 
-let balls = [{x:firstPos[0], y: firstPos[1]}]
+function ballPos() {
+  let x = mikeX + 12;
+  let y = canvas.height - mike.height - 38;
+  return [x, y];
+}
+let firstPos = ballPos();
+let balls = [{ x: firstPos[0], y: firstPos[1] }];
 
 
-
-
-function drawBall() {
+function createBall() {
   if (isSpaceKey) {
-    for (let i = 0; i < balls.length; i++) {
-      ctx.drawImage(ball, balls[i].x, balls[i].y);
-      mikeY -= incrBall;
-      balls.push({ x: firstPos[0], y: -mikeY});
-    }
+      balls.push({
+        x: mikeX,
+        y: mikeY,
+      });
   }
 }
+
+function drawBall() {
+  for (let i = 0; i < balls.length; i++) {
+    ctx.drawImage(ball, balls[i].x, balls[i].y);
+    balls[i].y -= incrBall;
+  }
+}
+// let balls = []
+
+// function shootBall(x,y) {
+//   ballX = x;
+//   ballY = y;
+//   this.toDelete = false;
+
+//   this.showBall = function () {
+//     ctx.drawImage(ball, mike + 12, ballY)
+//   }
+  
+//   this.disappear = function () {
+//     this.toDelete = true;
+//   }
+
+//   this.hit = function (ball) {
+//     if (ballX < arrToby[i].x + arrToby[i].width &&
+//       ballX + ball.width > arrToby[i].x &&
+//       ballY < arrToby[i].y + arrToby[i].height &&
+//       ballY + arrToby[i].height > arrToby[i].y) {
+//       return true
+//     } else {
+//       return false
+//     }
+//   }
+
+//   this.move = function () {
+//     ballY -= incrBall
+//   }
+// }
 
 
 function drawToby() {
@@ -144,9 +178,11 @@ function draw() {
     ctx.drawImage(backImg, 0, 0);
     ctx.drawImage(mike, mikeX, backImg.height - mike.height);
       drawToby();
-      drawBall();
       moveMike();
+      createBall()
+      drawBall();
       collision();
+  
   
   
   }
