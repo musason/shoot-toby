@@ -17,15 +17,12 @@ document.addEventListener("keydown", (event) => {
   if (event.keyCode == 39 || event.keyCode == "ArrowRight") {
     isRightArrow = true;
     isLeftArrow = false;
-
   } else if (event.keyCode == 37 || event.keyCode == "ArrowLeft") {
     isRightArrow = false;
     isLeftArrow = true;
-  
   }
   if (event.keyCode == 32 || event.keyCode == "Space") {
     isSpaceKey = true;
-  
   }
 });
 
@@ -76,7 +73,7 @@ function ballPos() {
   return [x, y];
 }
 let firstPos = ballPos();
-let balls = [{ x: firstPos[0], y: firstPos[1] }];
+let balls = [];
 
 
 function createBall() {
@@ -84,15 +81,17 @@ function createBall() {
       balls.push({
         x: mikeX,
         y: mikeY,
-      });
+      }); 
+    isSpaceKey = false
   }
 }
 
 function drawBall() {
-  for (let i = 0; i < balls.length; i++) {
-    ctx.drawImage(ball, balls[i].x, balls[i].y);
-    balls[i].y -= incrBall;
-  }
+    for (let i = 0; i < balls.length; i++) {
+      ctx.drawImage(ball, balls[i].x, balls[i].y);
+      balls[i].y -= incrBall;
+    }
+
 }
 // let balls = []
 
@@ -190,15 +189,6 @@ function draw() {
 intervalID = setInterval(() => {
   requestAnimationFrame(draw);
 }, 5)
-
-
-
-
-
-
-
-
-
 
 
 
