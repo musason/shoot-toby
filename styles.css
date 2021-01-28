@@ -1,3 +1,35 @@
 body{
     background-image: url("images/crumpled-paper-texture.jpg");
 }
+
+#startgame{
+    position: absolute;
+    left: 400px;
+    top: 30px;
+    border-style: solid;
+}
+
+h2{
+    font-family: fantasy;
+    font-size: 50px;
+    position: absolute;
+    left: 410px;
+    top: 550px;
+    color: brown;
+}
+
+#img2{
+    position: absolute;
+    left: 400px;
+    top: 30px;
+    border-style: solid;
+}
+
+h3{
+    font-family: fantasy;
+    font-size: 50px;
+    position: absolute;
+    left: 410px;
+    top: 550px;
+    color: brown;
+}

@@ -12,6 +12,9 @@ let incrMike = 3;
 let tobyY = 30;
 let isSpaceKey = false;
 let incrBall = 3;
+let score = 0;
+let audio = new Audio("/sounds/paper.wav");
+let audio2 = new Audio("/sounds/twss.mp3");
 
 document.addEventListener("keydown", (event) => {
   if (event.keyCode == 39 || event.keyCode == "ArrowRight") {
@@ -25,10 +28,6 @@ document.addEventListener("keydown", (event) => {
     isSpaceKey = true;
   }
 });
-
-// document.addEventListener("click", (event) => {
-   
-// })
 
 document.addEventListener("keyup", (event) => {
   isRightArrow = false;
@@ -57,70 +56,39 @@ let mikeY = canvas.height - mike.height;
 
 function rndSize() {
   let rw = Math.floor(Math.random() * 80) + 20;
-  let rh = rw * 1.4
-  return [rw, rh]
+  let rh = rw * 1.4;
+  return [rw, rh];
 }
 
 let firstSize = rndSize();
 
-
-
 let arrToby = [{ x: 30, y: 30, width: firstSize[0], height: firstSize[1] }];
 
-// function ballPos() {
-//   let x = mikeX + 12;
-//   let y = canvas.height - mike.height - 38;
-//   return [x, y];
-// }
-// let firstPos = ballPos();
-let balls = [{x:0 ,y:0}];
-
+let balls = [];
 
 function createBall() {
-  
-    if (isSpaceKey) {
-      balls.push({
-        x: mikeX,
-        y: mikeY,
-      });
-        isSpaceKey = false;
-    }
+  if (isSpaceKey) {
+    audio.play();
+    balls.push({
+      x: mikeX,
+      y: mikeY,
+    });
+    isSpaceKey = false;
+  }
 }
 
 function drawBall() {
-    for (let i = 0; i < balls.length; i++) {
+  for (let i = 0; i < balls.length; i++) {
     ctx.drawImage(ball, balls[i].x, balls[i].y);
     balls[i].y -= incrBall;
+    shoot = false;
     if (balls[i].y == 5) {
       balls.splice(i, 1);
     }
+    // if (balls[i].y = -100) {
+    // }
   }
 }
-// let balls = []
-
-// function shootBall(x,y) {
-//   ballX = x;
-//   ballY = y;
-//   this.toDelete = false;
-
-//   this.showBall = function () {
-//     ctx.drawImage(ball, mike + 12, ballY)
-//   }
-  
-//   this.disappear = function () {
-//     this.toDelete = true;
-//   }
-
-//   this.hit = function (ball) {
-
-//     }
-//   }
-
-//   this.move = function () {
-//     ballY -= incrBall
-//   }
-// }
-
 
 function drawToby() {
   for (let i = 0; i < arrToby.length; i++) {
@@ -132,63 +100,65 @@ function drawToby() {
       arrToby[i].height
     );
     arrToby[i].y++;
-    if (arrToby[i].y == canvas.height+2) {
-      arrToby.shift();
+    if (score > 25 && score < 50) {
+      arrToby[i].y += 1.2;
     }
-      if (arrToby[i].y == toby.height / 2) {
-        firstSize = rndSize();
-        arrToby.push({
-          x: Math.floor(Math.random() * (canvas.width - toby.width)),
-          y: -toby.height,
-          width: firstSize[0],
-          height: firstSize[1],
-        });
+    if (score > 50 && score < 75) {
+      arrToby[i].y += 1.5;
+    }
+    if (score > 75) {
+      arrToby[i].y += 1.7;
+    }
+    if (arrToby[i].y == canvas.height + 2) {
+      arrToby.shift();
+      score--;
+    }
+    if (arrToby[i].y == toby.height / 2) {
+      firstSize = rndSize();
+      arrToby.push({
+        x: Math.floor(Math.random() * (canvas.width - toby.width)),
+        y: -toby.height,
+        width: firstSize[0],
+        height: firstSize[1],
+      });
     }
   }
 }
 
-function ballCollision() {
-  
-}
-
 function collision() {
-  for (let i = 0; i < arrToby.length; i++){
+  for (let i = 0; i < arrToby.length; i++) {
     if (
-    ((mikeX < arrToby[i].x + arrToby[i].width-5 &&
-    mikeX + mike.width+5 > arrToby[i].x)|| (mikeX > arrToby[i].x-5 && mikeX < arrToby[i].x + arrToby[i].width-5)) &&
-    mikeY < arrToby[i].y + arrToby[i].height-5
-  ) {
-    clearInterval(intervalID);
-    alert("GAME OVER");
-    location.reload();
+      ((mikeX < arrToby[i].x + arrToby[i].width - 5 &&
+        mikeX + mike.width + 5 > arrToby[i].x) ||
+        (mikeX > arrToby[i].x - 5 &&
+          mikeX < arrToby[i].x + arrToby[i].width - 5)) &&
+      mikeY < arrToby[i].y + arrToby[i].height - 5
+    ) {
+      clearInterval(intervalID);
+      gameOver();
     }
-    
-    for (let j = balls.length - 1; j >= 0; j--) {
+
+    for (let j = 0; j < balls.length; j++) {
       if (
         balls[j].x + 10 < arrToby[i].x + arrToby[i].width &&
         balls[j].x + ball.width > arrToby[i].x &&
         balls[j].y + 10 < arrToby[i].y + arrToby[i].height &&
         balls[j].y + arrToby[i].height > arrToby[i].y
       ) {
-        balls.splice(j--, 1)
- 
+        balls.splice(j, 1);
+        arrToby.splice(i, 1);
+        score++;
+        if (arrToby.length == 0) {
+          firstSize = rndSize();
+          arrToby.push({
+            x: Math.floor(Math.random() * (canvas.width - toby.width)),
+            y: -toby.height,
+            width: firstSize[0],
+            height: firstSize[1],
+          });
+        }
       }
-
     }
-  
-
-    // for (let k = arrToby.length - 1; k >= 0; k--) {
-    //   if (
-    //     balls[i].x + 10 < arrToby[k].x + arrToby[k].width &&
-    //     balls[i].x + ball.width > arrToby[k].x &&
-    //     balls[i].y + 10 < arrToby[k].y + arrToby[k].height &&
-    //     balls[i].y + arrToby[k].height > arrToby[k].y
-    //   ) {
-    //     arrToby.splice(k--, 1)
-    //     hit = true;
-    //   }
-    // }
-
   }
 }
 
@@ -201,37 +171,69 @@ function moveMike() {
 }
 
 function draw() {
-    
-    ctx.drawImage(backImg, 0, 0);
-    ctx.drawImage(mike, mikeX, backImg.height - mike.height);
-    drawToby();
-    moveMike();
-    createBall()
-    drawBall();
-    collision();
+  ctx.drawImage(backImg, 0, 0);
+  ctx.drawImage(mike, mikeX, backImg.height - mike.height);
+  drawToby();
+  moveMike();
+  createBall();
+  drawBall();
+  collision();
+  ctx.font = "25px American Typewriter Standard";
+  ctx.fillStyle = "#330000";
+  ctx.fillText("Points: " + score, canvas.width - 110, 25);
+  if (score < 0) {
+    clearInterval(intervalID);
+    gameOver();
   }
+}
 
-intervalID = setInterval(() => {
-  requestAnimationFrame(draw);
-}, 5)
+let start = document.querySelector(".image");
+let startBtn = document.querySelector("h2");
+let restart = document.querySelector("h3");
+let restartGame = document.querySelector(".done");
 
+function startGame() {
+  canvas.style.display = "block";
+  start.style.display = "none";
+  restartGame.style.display = "none";
+  intervalID = setInterval(() => {
+    requestAnimationFrame(draw);
+  }, 4);
+}
+window.addEventListener("load", () => {
+  start.style.display = "block";
+  canvas.style.display = "none";
+  restartGame.style.display = "none";
 
+  startBtn.addEventListener("mouseover", () => {
+    startBtn.style.cursor = "pointer";
+    startBtn.style.color = "green";
+  });
+  startBtn.addEventListener("mouseout", () => {
+    startBtn.style.color = "brown";
+  });
+  startBtn.addEventListener("click", () => {
+    startGame();
+  });
+});
 
-
-  // for (let i = 0; i < arrBall.length; i++) {
-    //   ctx.drawImage(ball, mikeX + 12, ballY)
-    //   ballY -= incrBall
-    //   if (ballY == 0) {
-    //     arrBall.push({
-    //       x: mikeX + 12,
-    //       y: ballY
-    //     });
-    //   }
-
-    // }
-    
-    // if (isSpaceKey) {
-    //   ctx.drawImage(ball, mikeX + 12, ballY);
-    //   ballY -= incrBall
-    
-    // }
+function gameOver() {
+  audio2.play();
+  restartGame.style.display = "block";
+  canvas.style.display = "none";
+  start.style.display = "none";
+  restart.addEventListener("mouseover", () => {
+    restart.style.cursor = "pointer";
+    restart.style.color = "green";
+  });
+  restart.addEventListener("mouseout", () => {
+    restart.style.color = "brown";
+  });
+  restart.addEventListener("click", () => {
+    score = 0;
+    firstSize = rndSize();
+    arrToby = [{ x: 30, y: 30, width: firstSize[0], height: firstSize[1] }];
+    balls = [];
+    startGame();
+  });
+}
