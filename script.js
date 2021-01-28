@@ -102,7 +102,7 @@ function drawToby() {
     );
     arrToby[i].y++;
     if (score > 25 && score < 50) {
-      arrToby[i].y += 1.2;
+      arrToby[i].y += 1.1;
     }
     if (score > 50 && score < 75) {
       arrToby[i].y += 1.5;
@@ -129,9 +129,8 @@ function drawToby() {
 function collision() {
   for (let i = 0; i < arrToby.length; i++) {
     if (
-      ((mikeX < arrToby[i].x + arrToby[i].width &&
-        mikeX + mike.width > arrToby[i].x) ||
-        (mikeX > arrToby[i].x && mikeX < arrToby[i].x + arrToby[i].width)) &&
+      mikeX < arrToby[i].x + arrToby[i].width &&
+        mikeX + mike.width > arrToby[i].x &&
       mikeY < arrToby[i].y + arrToby[i].height
     ) {
       clearInterval(intervalID);
