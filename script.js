@@ -13,8 +13,8 @@ let tobyY = 30;
 let isSpaceKey = false;
 let incrBall = 3;
 let score = 0;
-let audio = new Audio("/sounds/paper.wav");
-let audio2 = new Audio("/sounds/twss.mp3");
+let audio = new Audio("./sounds/paper.wav");
+let audio2 = new Audio("./sounds/twss.mp3");
 
 document.addEventListener("keydown", (event) => {
   if (event.keyCode == 39 || event.keyCode == "ArrowRight") {
@@ -66,14 +66,17 @@ let arrToby = [{ x: 30, y: 30, width: firstSize[0], height: firstSize[1] }];
 
 let balls = [];
 
+let shoot = true;
+
 function createBall() {
-  if (isSpaceKey) {
+  if (isSpaceKey && shoot) {
     audio.play();
     balls.push({
       x: mikeX,
       y: mikeY,
     });
     isSpaceKey = false;
+    shoot = false;
   }
 }
 
@@ -81,12 +84,10 @@ function drawBall() {
   for (let i = 0; i < balls.length; i++) {
     ctx.drawImage(ball, balls[i].x, balls[i].y);
     balls[i].y -= incrBall;
-    shoot = false;
-    if (balls[i].y == 5) {
+    if (balls[i].y < 5) {
       balls.splice(i, 1);
+      shoot = true;
     }
-    // if (balls[i].y = -100) {
-    // }
   }
 }
 
@@ -147,6 +148,7 @@ function collision() {
       ) {
         balls.splice(j, 1);
         arrToby.splice(i, 1);
+        shoot = true;
         score++;
         if (arrToby.length == 0) {
           firstSize = rndSize();
@@ -229,11 +231,12 @@ function gameOver() {
   restart.addEventListener("mouseout", () => {
     restart.style.color = "brown";
   });
-  restart.addEventListener("click", () => {
-    score = 0;
-    firstSize = rndSize();
-    arrToby = [{ x: 30, y: 30, width: firstSize[0], height: firstSize[1] }];
-    balls = [];
-    startGame();
-  });
 }
+restart.addEventListener("click", () => {
+  shoot = true;
+  score = 0;
+  firstSize = rndSize();
+  arrToby = [{ x: 30, y: 30, width: firstSize[0], height: firstSize[1] }];
+  balls = [];
+  startGame();
+});
