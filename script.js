@@ -130,8 +130,9 @@ function collision() {
   for (let i = 0; i < arrToby.length; i++) {
     if (
       mikeX < arrToby[i].x + arrToby[i].width &&
-        mikeX + mike.width > arrToby[i].x &&
-      mikeY < arrToby[i].y + arrToby[i].height
+      mikeX + mike.width > arrToby[i].x &&
+      mikeY < arrToby[i].y + arrToby[i].height &&
+      mikeY + arrToby[i].height > arrToby[i].y
     ) {
       clearInterval(intervalID);
       gameOver();
@@ -172,7 +173,7 @@ function moveMike() {
 
 function draw() {
   ctx.drawImage(backImg, 0, 0);
-  ctx.drawImage(mike, mikeX, backImg.height - mike.height);
+  ctx.drawImage(mike, mikeX, mikeY);
   drawToby();
   moveMike();
   createBall();
