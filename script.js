@@ -84,7 +84,7 @@ function drawBall() {
   for (let i = 0; i < balls.length; i++) {
     ctx.drawImage(ball, balls[i].x, balls[i].y);
     balls[i].y -= incrBall;
-    if (balls[i].y < 5) {
+    if (balls[i].y < 150) {
       balls.splice(i, 1);
       shoot = true;
     }
@@ -129,11 +129,10 @@ function drawToby() {
 function collision() {
   for (let i = 0; i < arrToby.length; i++) {
     if (
-      ((mikeX < arrToby[i].x + arrToby[i].width - 5 &&
-        mikeX + mike.width + 5 > arrToby[i].x) ||
-        (mikeX > arrToby[i].x - 5 &&
-          mikeX < arrToby[i].x + arrToby[i].width - 5)) &&
-      mikeY < arrToby[i].y + arrToby[i].height - 5
+      ((mikeX < arrToby[i].x + arrToby[i].width &&
+        mikeX + mike.width > arrToby[i].x) ||
+        (mikeX > arrToby[i].x && mikeX < arrToby[i].x + arrToby[i].width)) &&
+      mikeY < arrToby[i].y + arrToby[i].height
     ) {
       clearInterval(intervalID);
       gameOver();
@@ -150,7 +149,7 @@ function collision() {
         arrToby.splice(i, 1);
         shoot = true;
         score++;
-        if (arrToby.length == 0) {
+        if (arrToby.length <= 0) {
           firstSize = rndSize();
           arrToby.push({
             x: Math.floor(Math.random() * (canvas.width - toby.width)),
@@ -182,7 +181,7 @@ function draw() {
   collision();
   ctx.font = "25px American Typewriter Standard";
   ctx.fillStyle = "#330000";
-  ctx.fillText("Points: " + score, canvas.width - 110, 25);
+  ctx.fillText("Score: " + score, canvas.width - 110, 25);
   if (score < 0) {
     clearInterval(intervalID);
     gameOver();
@@ -221,6 +220,8 @@ window.addEventListener("load", () => {
 
 function gameOver() {
   audio2.play();
+  let finalScore = document.querySelector("#score");
+  finalScore.innerHTML = `Your Score: ${score}`;
   restartGame.style.display = "block";
   canvas.style.display = "none";
   start.style.display = "none";
