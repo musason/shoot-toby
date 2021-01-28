@@ -14,7 +14,7 @@ let isSpaceKey = false;
 let incrBall = 3;
 let score = 0;
 let audio = new Audio("./sounds/paper.wav");
-let audio2 = new Audio("./sounds/twss.mp3");
+let audio2 = new Audio("./sounds//mikescream.mp3");
 
 document.addEventListener("keydown", (event) => {
   if (event.keyCode == 39 || event.keyCode == "ArrowRight") {
