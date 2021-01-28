@@ -125,7 +125,6 @@ function drawToby() {
     }
   }
 }
-
 function collision() {
   for (let i = 0; i < arrToby.length; i++) {
     if (
@@ -234,6 +233,8 @@ function gameOver() {
   });
 }
 restart.addEventListener("click", () => {
+  mikeX = (canvas.width - mike.width) / 2;
+  mikeY = canvas.height - mike.height;
   shoot = true;
   score = 0;
   firstSize = rndSize();
