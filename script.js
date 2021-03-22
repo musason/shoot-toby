@@ -126,6 +126,8 @@ function drawToby() {
     
   }
 }
+
+
 function collision() {
   for (let i = 0; i < arrToby.length; i++) {
     if (
@@ -169,6 +171,10 @@ function moveMike() {
   } else if (isLeftArrow && mikeX > 0) {
     mikeX -= incrMike;
   }
+}
+
+function drawMike() {
+  ctx.drawImage(mike, mikeX, mikeY);
 }
 
 function draw() {
@@ -221,7 +227,7 @@ window.addEventListener("load", () => {
 function gameOver() {
   audio2.play();
   let finalScore = document.querySelector("#score");
-  finalScore.innerHTML = `Your Score: ${score}`;
+  finalScore.innerHTML =score === -1 ? `Your Score: ${0}` : `Your Score: ${score}`;
   restartGame.style.display = "block";
   canvas.style.display = "none";
   start.style.display = "none";
