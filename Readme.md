@@ -2,7 +2,46 @@
 
 ![Game Image](/images/Unbenannt.png)
 
-The concept of this game is similar to Space Invaders, themed around the Office tv show.
+## Description
 
-The premise of the game is, Michael Scott's head is moving horizontally and shoots paper balls vertically.
-The purpose is the shoot moving down heads of toby to score point. Should the head of Toby hit Michael's the Game is Over.
+Let's combine a silly game with the silliest fued in Television history, between Michael Scott and Toby Flenderson from The Office.
+
+## Gameplay
+
+* Use Left and Right keys to move
+* Space Bar to shoot
+* If Toby is shot, Player earns a point 
+* If Toby passes the Player loses a point
+* If the players has 0 point GAME OVER!
+* If there is a collision between Michael and Toby GAME OVER!
+
+## Technology
+
+* JavaScript
+* HTML
+* CSS
+* DOM Manipulation
+
+## Data Structure
+
+script.js
+    * createBall()
+    * drawBall()
+    * drawToby()
+    * collision()
+    * moveMike()
+    * drawMike()
+    * draw()
+    * startGame()
+    * gameOver()
+
+## Links
+
+### GIT
+
+[REPO](https://github.com/musason)
+[DEMO](https://musason.github.io/shoot-toby)
+
+## Contact Info
+
+* [LinkedIn](https://www.linkedin.com/in/zelimhan-ismailov/)
