@@ -101,20 +101,7 @@ function drawToby() {
       arrToby[i].height
     );
     arrToby[i].y++;
-    if (score > 25 && score < 50) {
-      arrToby[i].y += 1.1;
-    }
-    if (score > 50 && score < 75) {
-      arrToby[i].y += 1.5;
-    }
-    if (score > 75) {
-      arrToby[i].y += 1.7;
-    }
-    if (arrToby[i].y == canvas.height + 2) {
-      arrToby.shift();
-      score--;
-    }
-    if (arrToby[i].y == toby.height / 2) {
+    if (arrToby[i].y == toby50.height / 2) {
       firstSize = rndSize();
       arrToby.push({
         x: Math.floor(Math.random() * (canvas.width - toby.width)),
@@ -123,6 +110,20 @@ function drawToby() {
         height: firstSize[1],
       });
     }
+    // if (score > 25 && score < 50) {
+    //   arrToby[i].y += 1.1;
+    // }
+    // else if (score > 50 && score < 75) {
+    //   arrToby[i].y += 1.5;
+    // }
+    // else if (score > 75) {
+    //   arrToby[i].y += 1.7;
+    // }
+    if (arrToby[i].y == canvas.height + 2) {
+      arrToby.shift();
+      score--;
+    }
+    
   }
 }
 function collision() {
