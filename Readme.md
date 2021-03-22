@@ -1,5 +1,6 @@
 # Shoot Toby
 
+![Game Image](https://github.com/musason/shoot-toby/tree/master/images/Unbenannt.png)
 
 The concept of this game is similar to Space Invaders, themed around the Office tv show.
 
