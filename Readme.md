@@ -26,21 +26,21 @@ Let's combine a silly game with the silliest fued in Television history, between
 
 script.js
 * createBall()
-    * drawBall()
-    * drawToby()
-    * collision()
-    * moveMike()
-    * drawMike()
-    * draw()
-    * startGame()
-    * gameOver()
+* drawBall()
+* drawToby()
+* collision()
+* moveMike()
+* drawMike()
+* draw()
+* startGame()
+* gameOver()
 
 ## Links
 
 ### GIT
 
-[REPO](https://github.com/musason)
-[DEMO](https://musason.github.io/shoot-toby)
+* [REPO](https://github.com/musason)
+* [Game Demo](https://musason.github.io/shoot-toby)
 
 ## Contact Info
 
