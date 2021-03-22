@@ -25,7 +25,7 @@ Let's combine a silly game with the silliest fued in Television history, between
 ## Data Structure
 
 script.js
-    * createBall()
+* createBall()
     * drawBall()
     * drawToby()
     * collision()
