@@ -50,9 +50,9 @@ let ball = document.createElement("img");
 ball.src = "images/ball2.png";
 
 let ballY = canvas.height - mike.height - 38;
-let mikeX = (canvas.width - mike.width) / 2;
+let mikeX = (canvas.width - 70) / 2;
 let ballX = mikeX + 12;
-let mikeY = canvas.height - mike.height;
+let mikeY = canvas.height - 99;
 
 function rndSize() {
   let rw = Math.floor(Math.random() * 80) + 20;
